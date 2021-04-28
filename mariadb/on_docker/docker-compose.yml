@@ -1,0 +1,18 @@
+version: "3"
+services:
+  db:
+    container_name: mariadb
+    # if use registry server: 0.0.0.0:443/mariadb
+    image: mariadb:latest
+    #restart: always
+    ports: 
+      - ${EXTERNAL}:${INTERNAL}
+    volumes:
+      #- ${CURR}/${DB_CONFIG_DIR}:/etc/mysql/conf.d
+      - ${CURR}/${DATA_DIR}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS} # Must be changed
+      MYSQL_USER: ${ADMIN_USER}
+      MYSQL_PASSWORD: ${ADMIN_PASS}
+      MYSQL_DATABASE: ${ADMIN_DB}
+      TZ: Asia/Seoul

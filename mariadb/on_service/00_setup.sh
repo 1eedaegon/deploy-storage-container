@@ -6,6 +6,7 @@ docker swarm init
 
 echo "> [INIT] Set-up docker registry - key"
 mkdir -p certs
+# Key from targer server, test guide : https://docs.docker.com/registry/insecure/
 docker secret create domain.crt certs/domain.crt
 docker secret create domain.key certs/domain.key
 

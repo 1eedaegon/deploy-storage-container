@@ -2,7 +2,8 @@ version: '3.1'
 
 services:
   db:
-    image: 0.0.0.0:443/mariadb
+    # if use registry server: 0.0.0.0:443/mariadb
+    image: mariadb
     restart: always
     ports: 
       - 3306:3306
