@@ -4,11 +4,11 @@ services:
     container_name: mariadb
     # if use registry server: 0.0.0.0:443/mariadb
     image: mariadb:latest
-    #restart: always
+    restart: always
     ports: 
       - ${EXTERNAL}:${INTERNAL}
     volumes:
-      #- ${CURR}/${DATA_DIR}:/var/lib/mysql
+      - ${CURR}/${DATA_DIR}:/var/lib/mysql
       - ${CURR}/${DB_CONFIG_DIR}/${DB_CONFIG}:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: ${ROOT_PASS} # Must be changed

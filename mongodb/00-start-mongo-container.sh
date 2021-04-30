@@ -1,1 +1,1 @@
-docker-compose -f mongo-compose.yml up
+docker-compose -f mongo-compose.yml up -d
