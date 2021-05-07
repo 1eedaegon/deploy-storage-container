@@ -36,7 +36,6 @@ else
     docker run -p 0.0.0.0:3306:3306 --name $DB -e MYSQL_ROOT_PASSWORD=password -d $DB
   else
     echo "> [DEPLOY] Now local deploy: $DB "
-    echo "> $DB_CONFIG_DIR is bdconfig"
     echo "> =======>"
     docker compose up -d
   fi
