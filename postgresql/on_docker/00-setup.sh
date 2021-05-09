@@ -10,3 +10,19 @@ function curr_dir {
     echo "$(dirname $(realpath $0))"
   fi
 }
+function echo_msg {
+  echo "> [$(echo $1 | tr 'a-z' 'A-Z')] ${@:2}" 
+}
+function progress {
+ # POSIX sh
+  sp='/-\|'
+  printf ' '
+  sleep 0.3
+  while true; do
+    printf '\b%.1s' "$sp"
+    sp=${sp#?}${sp%???}
+    sleep 0.1
+  done
+}
+
+echo_msg start Bash setting initialize

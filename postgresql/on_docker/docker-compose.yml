@@ -11,7 +11,7 @@ services:
       - ${CURR}/${DATA_DIR}:/var/lib/postgresql/data
       - ${CURR}/${DB_CONFIG_DIR}/${DB_CONFIG}:/etc/postgresql/postgres.conf
     environment:
-      - POSTGRES_USER: ${ADMIN_USER}
-      - POSTGRES_PASSWORD: ${ADMIN_PASS}
+      POSTGRES_USER: ${ADMIN_USER}
+      POSTGRES_PASSWORD: ${ADMIN_PASS}
 
       
