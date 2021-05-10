@@ -29,23 +29,22 @@ echo "> [INIT] Initialize completed."
 if ! is_dir_exist $CURR/$DATA_DIR; then
   mkdir -p $CURR/$DATA_DIR
 fi
-echo "> [INIT] Set db volume: /$DATA_DIR"
+echo "> [INIT] Set volume: /$DATA_DIR"
+
+# SET DB CONFIG
+if ! is_file_exist $CURR/$DB_CONFIG_DIR/$DB_CONFIG; then
+  echo "> [WARNING] Not exist $CURR/$DB_CONFIG_DIR/$DB_CONFIG"
+  echo "> [DEPLOY] Set default settings: $DB"
+else
+  echo "> [DEPLOY] Set $DB from: /$DB_CONFIG_DIR/$DB_CONFIG"
+fi
 
 # SET DEPLOY CONFIG
-echo "> [DEPLOY] Deploy PostgreSQL container from: $DEPLOY_CONFIG"
+echo "> [DEPLOY] Deploy settings from: $DEPLOY_CONFIG"
 if ! is_file_exist $CURR/$DEPLOY_CONFIG; then
   echo "> [ERROR] Not exist: $DEPLOY_CONFIG "
   exit 0
 fi
 echo "> [DEPLOY] Set deploy from: $DEPLOY_CONFIG"
-
-# DEPLOY
-if ! is_file_exist $CURR/$DB_CONFIG_DIR/$DB_CONFIG; then
-  echo "$CURR/$DB_CONFIG_DIR/$DB_CONFIG"
-  echo "> [DEPLOY] Not exist $DB_CONFIG, Start deploy default container: $DB"
-else
-  echo "> [DEPLOY] Set DB from: /$DB_CONFIG_DIR/$DB_CONFIG"
-  echo "> [DEPLOY] Now deploy: $DB "
-   
-fi
-
+echo "> [DEPLOY] Now deploy....!!!"
+docker compose up -d

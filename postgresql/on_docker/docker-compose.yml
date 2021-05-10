@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  db:
+  postgresdb:
     container_name: postgresql
     image: postgres
     restart: always
@@ -13,5 +13,19 @@ services:
     environment:
       POSTGRES_USER: ${ADMIN_USER}
       POSTGRES_PASSWORD: ${ADMIN_PASS}
-
+      POSTGRES_DB: ${ADMIN_DB}
       
+  pgadminpage:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - ${PGA_EXTERNAL}:${PGA_INTERNAL}
+    environment:
+     - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_USER}
+     - PGADMIN_DEFAULT_PASSWORD=${PG_ADMIN_PASS}
+
+
+# networks:
+#   default:
+#     name: postgre-network

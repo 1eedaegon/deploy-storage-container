@@ -1,7 +1,7 @@
 version: "3"
 services:
-  db:
-    container_name: mariadb
+  mariadb:
+    container_name: maria
     # if use registry server: 0.0.0.0:443/mariadb
     image: mariadb:latest
     restart: always
@@ -16,3 +16,7 @@ services:
       MYSQL_PASSWORD: ${ADMIN_PASS}
       MYSQL_DATABASE: ${ADMIN_DB}
       TZ: Asia/Seoul
+
+# networks:
+#   default:
+#     name: maria-network
