@@ -17,6 +17,8 @@ services:
       MYSQL_DATABASE: ${ADMIN_DB}
       TZ: Asia/Seoul
 
-# networks:
-#   default:
-#     name: maria-network
+# if use docker network
+networks:
+  default:
+    external: true
+    name: maria-network

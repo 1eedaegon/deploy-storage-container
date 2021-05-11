@@ -16,6 +16,8 @@ services:
     # command: 
      # - mongo admin --host localhost:27017 -u root -p root --eval "db.createUser({user:'app',pwd:'app',roles:[{role:'userAdminAnyDatabase',db:'v-tube'}]});"
      #
-# networks:
-#   default:
-#     name: mongo-network
+# if use docker network
+networks:
+  default:
+    external: true
+    name: mongo-network
