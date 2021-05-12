@@ -10,10 +10,12 @@ services:
     volumes:
       - ${CURR}/${DATA_DIR}:/var/lib/postgresql/data
       - ${CURR}/${DB_CONFIG_DIR}/${DB_CONFIG}:/etc/postgresql/postgres.conf
+      # - ${CURR}/${DB_CONFIG_DIR}/${DB_CONFIG}:/var/lib/postgresql/data/postgres.conf
     environment:
       POSTGRES_USER: ${ADMIN_USER}
       POSTGRES_PASSWORD: ${ADMIN_PASS}
       POSTGRES_DB: ${ADMIN_DB}
+      # command: postgres -c config_file=/etc/postgresql/postgres.conf
       
   pgadminpage:
     container_name: pgadmin

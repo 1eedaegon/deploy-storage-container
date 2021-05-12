@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker logs -t pgadmin
+docker logs -t postgresql
