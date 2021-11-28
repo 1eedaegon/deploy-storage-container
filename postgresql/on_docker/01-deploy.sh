@@ -47,4 +47,8 @@ if ! is_file_exist $CURR/$DEPLOY_CONFIG; then
 fi
 echo "> [DEPLOY] Set deploy from: $DEPLOY_CONFIG"
 echo "> [DEPLOY] Now deploy....!!!"
-docker compose up -d
+# IF YOU USE MAC-OS
+# docker compose up -d
+
+# IF YOU USE WINDOWS
+docker-compose up
