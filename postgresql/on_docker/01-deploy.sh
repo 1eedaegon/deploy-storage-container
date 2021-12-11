@@ -47,8 +47,18 @@ if ! is_file_exist $CURR/$DEPLOY_CONFIG; then
 fi
 echo "> [DEPLOY] Set deploy from: $DEPLOY_CONFIG"
 echo "> [DEPLOY] Now deploy....!!!"
-# IF YOU USE MAC-OS
-# docker compose up -d
+case "$OS" in
+    "$MAC")
+        echo "This is MacOS"
+        echo "Execute: docker compose up -d"
+        docker compose up -d;;
+    "$LINUX")
+        echo "This is Linux"
+        echo "Execute: docker-compose up"
+        docker-compose up;;
+    * )
+        echo "Other OS"
+        echo "TYPE: $OS";;
+esac
 
-# IF YOU USE WINDOWS
-docker-compose up
+echo "> [COMPLETE] Operation finished."
