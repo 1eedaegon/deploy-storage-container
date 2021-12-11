@@ -1,24 +1,30 @@
 #!/bin/bash
 ENV_FILE=.env
+CURR=`pwd`
+OS=`uname -s | tr '[A-Z]' '[a-z]'`
 
-# GET ENVIRONEMNT FROM .env
+echo $OS
+
+# REPLACE CURRENT DIR INSIDE ENV FILE
+function replace_curr_dir {
+  if grep -q CURR= "$ENV_FILE"; then
+    sed -e "s#CURR=.*#CURR=${CURR}#g" "$ENV_FILE" > "$ENV_FILE.tmp"
+    mv $ENV_FILE.tmp $ENV_FILE
+  fi
+}
+
+# GET ENVIRONMENT FROM FILE
 if [ ! -f $ENV_FILE ]; then
-  echo "> [ERROR] Not exist: ENV_FILE"
+  echo "> [ERROR] Not exist: $ENV_FILE"
   exit 0
 else
-  echo "> [INIT] Get environment from .env"
-  export $(grep -v '^#' .env | xargs)
+  echo "> [INIT] Get environment from some file"
+  replace_curr_dir
+  export $(grep -v '^#' $ENV_FILE | xargs)
 fi
+echo "> [INIT] Initialize completed."
 
-# GET ABS PATH & INSERT TO .env 
-if [ ! $CURR ]; then
-  echo "> [INIT] Not exist: \$CURR, Insert \$CURR into .env"
-  CURR=$(dirname $(realpath $0))
-  echo "CURR=$CURR" >> $CURR/.env
-fi
-echo "> [INIT] Current directory: $CURR"
-
-# Make DB repository
+# Make DB volume 
 if [ ! -d $CURR/$DATA_DIR ]; then 
   echo "> [INIT] Make DB volume: $DATA_DIR"
   mkdir -p $CURR/$DATA_DIR
@@ -29,7 +35,7 @@ fi
 # Deploy
 echo "> [DEPLOY] Deploy mariaDB container from: $DEPLOY_CONFIG"
 if [ ! -f $CURR/$DEPLOY_CONFIG ]; then
-  echo "> [ERROR] Not exist: $DEPLOY_CONFIG"
+  echo "> [ERROR] Not exist: $CURR/$DEPLOY_CONFIG"
 else
   if [ ! -f $CURR/$DB_CONFIG_DIR/$DB_CONFIG ]; then
     echo "> [DEPLOY] Not exist $DB_CONFIG, Start deploy with default settings: $DB"
@@ -37,6 +43,25 @@ else
   else
     echo "> [DEPLOY] Now local deploy: $DB "
     echo "> =======>"
-    docker compose up -d
+	case "$OS" in
+		"$MAC")
+			echo "This is MacOS" 
+			echo "Execute: docker compose up -d"
+			docker compose up -d;;
+		"$LINUX")
+			echo "This is Linux" 
+			echo "Execute: docker-compose up"
+			docker-compose up;;
+		* )
+			echo "Other OS"
+			echo "TYPE: $OS";;
+	esac
   fi
 fi
+
+echo "[COMPLETE] Operation finished."
+
+
+
+
+
