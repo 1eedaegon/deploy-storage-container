@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/zsh
+OS=`uname -s | tr '[A-Z]' '[a-z]'`
 
 source 00-setup.sh
 

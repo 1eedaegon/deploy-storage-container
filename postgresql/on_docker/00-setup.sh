@@ -25,4 +25,4 @@ function progress {
   done
 }
 
-echo_msg start Bash setting initialize
+echo_msg "start" Bash setting initialize
